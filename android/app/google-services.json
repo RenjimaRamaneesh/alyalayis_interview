@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "116523828173",
+    "project_id": "alyalayis-project",
+    "storage_bucket": "alyalayis-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116523828173:android:5f630b9da81a6c080bfa84",
+        "android_client_info": {
+          "package_name": "com.example.alyalayis_interview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3iQ7LdjO8J5gemoIdo615fauvLz2VC6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
