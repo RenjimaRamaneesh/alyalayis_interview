@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<TaskProvider>(
           create: (_) => TaskProvider(),
         ),
-        // Add other providers here if needed
       ],
       child: MaterialApp(
         title: 'Flutter To-Do App',
