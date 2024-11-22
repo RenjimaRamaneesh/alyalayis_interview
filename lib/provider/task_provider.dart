@@ -5,6 +5,9 @@ import '../model/task.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+
+
+
 class TaskProvider with ChangeNotifier {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -12,13 +15,17 @@ class TaskProvider with ChangeNotifier {
 
   List<Task> get tasks => _tasks;
 
-
-  Future<void> initializeNotifications() async {
-    final AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-    final InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  TaskProvider() {
+    initializeNotifications();
   }
 
+  Future<void> initializeNotifications() async {
+    final AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings('app_icon');
+    final InitializationSettings initializationSettings =
+    InitializationSettings(android: initializationSettingsAndroid);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
 
   Future<void> loadTasks() async {
     final Database db = await openDatabase(
@@ -30,32 +37,33 @@ class TaskProvider with ChangeNotifier {
       },
       version: 1,
     );
+
     final List<Map<String, dynamic>> maps = await db.query('tasks');
     _tasks = List.generate(maps.length, (i) {
       return Task.fromMap(maps[i]);
     });
+
     notifyListeners();
   }
-
 
   Future<void> addTask(Task task) async {
     final Database db = await openDatabase(
       join(await getDatabasesPath(), 'tasks.db'),
     );
+
     await db.insert(
       'tasks',
       task.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+
     loadTasks();
-
-
     showTaskReminderNotification(task);
   }
 
-
   Future<void> showTaskReminderNotification(Task task) async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
       'task_channel',
       'Task Reminders',
       channelDescription: 'Task reminders for your to-do app',
@@ -63,7 +71,10 @@ class TaskProvider with ChangeNotifier {
       priority: Priority.high,
       ticker: 'ticker',
     );
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+
     await flutterLocalNotificationsPlugin.show(
       0,
       'Task Reminder: ${task.title}',
@@ -73,7 +84,6 @@ class TaskProvider with ChangeNotifier {
     );
   }
 
-
   List<Task> getTasksForDay(DateTime day) {
     return _tasks.where((task) {
       return task.date.year == day.year &&
@@ -82,4 +92,7 @@ class TaskProvider with ChangeNotifier {
     }).toList();
   }
 }
+
+
+
 

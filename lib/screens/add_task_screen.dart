@@ -5,6 +5,7 @@ import '../model/task.dart';
 import '../provider/task_provider.dart';
 
 
+
 class AddTaskScreen extends StatefulWidget {
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
@@ -38,7 +39,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ElevatedButton(
               onPressed: () {
                 if (title.isNotEmpty && description.isNotEmpty) {
-
                   final task = Task(
                     title: title,
                     description: description,
@@ -48,7 +48,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
                   Navigator.pop(context);
                 } else {
-
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text('Please fill in both fields'),
                   ));
@@ -62,3 +61,5 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     );
   }
 }
+
+

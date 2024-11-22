@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'flutter_local_notification_plugin.dart';
+
 import 'screens/auth_screen.dart';
+
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,13 +19,23 @@ void main() async {
   runApp(MyApp());
 }
 
+Future<void> initializeNotifications() async {
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final AndroidInitializationSettings initializationSettingsAndroid =
+  AndroidInitializationSettings('@mipmap/ic_launcher');
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+  );
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<TaskProvider>(
-          create: (_) => TaskProvider(),
+          create: (_) => TaskProvider()..loadTasks(),
         ),
       ],
       child: MaterialApp(
@@ -36,26 +50,4 @@ class MyApp extends StatelessWidget {
 }
 
 
-/*
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
 
-  runApp(MyApp());
-
-  await initializeNotifications();
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter To-Do App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: AuthScreen(),
-    );
-  }
-}
-*/

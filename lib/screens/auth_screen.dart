@@ -56,33 +56,42 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Auth')),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.purple[300],
+          title: const Text('Authentication',style: TextStyle(color: Colors.white,fontSize: 18,),),
+      ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
               onChanged: (value) {
                 email = value;
               },
             ),
 
-            SizedBox(height:30),
+            const SizedBox(height:30),
             TextField(
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password'),
               obscureText: true,
               onChanged: (value) {
                 password = value;
               },
             ),
+            const SizedBox(height: 50,),
             isLoading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: login, child: Text('Login')),
-                SizedBox(width: 10),
-                ElevatedButton(onPressed: register, child: Text('Register')),
+                ElevatedButton(onPressed: login, child: Text('Login',style: TextStyle(color: Colors.white),),style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.purple.shade200)),),
+                const SizedBox(width: 10),
+                ElevatedButton(onPressed: register, child: Text('Register',style: TextStyle(color: Colors.white),),style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.purple.shade200)),),
               ],
             ),
           ],
