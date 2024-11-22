@@ -67,6 +67,8 @@ class _AuthScreenState extends State<AuthScreen> {
                 email = value;
               },
             ),
+
+            SizedBox(height:30),
             TextField(
               decoration: InputDecoration(labelText: 'Password'),
               obscureText: true,
